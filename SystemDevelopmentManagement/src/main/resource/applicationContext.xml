@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/tx ">
+    <context:property-placeholder location="classpath*:*.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+        <property name="debugUnreturnedConnectionStackTraces" value="true"/>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource">
+        <!-- 配置Hibernate的属性 -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="transaction.auto_close_session">true</prop>
+                <!-- 自动建表 -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.current_session_context_class">
+                    org.springframework.orm.hibernate5.SpringSessionContext
+                </prop>
+            </props>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>entity.ApiComponentEntity</value>
+                <value>entity.ApiComponentTypeEntity</value>
+                <value>entity.DataDictionaryEntity</value>
+                <value>entity.KnowledgeRepositoryEntity</value>
+                <value>entity.KnowledgeTypeEntity</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
+    <tx:annotation-driven proxy-target-class="true"/>
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--Dao-->
+    <bean id="baseDao" class="dao.implement.BaseDaoImp" scope="prototype" autowire="byName"/>
+    <bean id="apiComponentEntityDao" class="dao.implement.ApiComponentEntityDaoImp" scope="prototype"
+          autowire="byName"/>
+    <bean id="apiComponentTypeEntityDao" class="dao.implement.ApiComponentTypeEntityDaoImp" scope="prototype"
+          autowire="byName"/>
+    <bean id="dataDictionaryEntityDao" class="dao.implement.DataDictionaryEntityDaoImp" scope="prototype"
+          autowire="byName"/>
+    <bean id="knowledgeRepositoryEntityDao" class="dao.implement.KnowledgeRepositoryEntityDaoImp" scope="prototype"
+          autowire="byName"/>
+    <bean id="knowledgeTypeEntityDao" class="dao.implement.KnowledgeTypeEntityDaoImp" scope="prototype"
+          autowire="byName"/>
+    <!--service-->
+    <bean id="apiComponentService" class="service.ApiComponentService" scope="prototype" autowire="byName"/>
+    <bean id="dataDictionaryService" class="service.DataDictionaryService" scope="prototype" autowire="byName"/>
+    <bean id="knowledgeRepositoryService" class="service.KnowledgeRepositoryService" scope="prototype"
+          autowire="byName"/>
+    <!--bean-->
+    <bean id="page" class="bean.Page" scope="prototype" autowire="byName"/>
+</beans>

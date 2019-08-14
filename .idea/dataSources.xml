@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="dataSource" uuid="746e3f9e-5cb2-4ae3-ad8e-ff3e57331004">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>c3p0
+
+C:/Users/XIAOSONG.WANG/IdeaProjects/PersonalProject/SystemDevelopmentManagement/src/main/resource/applicationContext.xml</remarks>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.driver.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//10.148.202.14:1521/PUBMESDV</jdbc-url>
+      <driver-properties>
+        <property name="v$session.program" value="DataGrip" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="jdbc" uuid="aec50b27-81e5-4b7d-80bf-b7851b90d93a">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>jdbc.properties
+
+C:/Users/XIAOSONG.WANG/IdeaProjects/PersonalProject/SystemDevelopmentManagement/src/main/resource/jdbc.properties</remarks>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.driver.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//10.148.202.14:1521/PUBMESDV</jdbc-url>
+      <driver-properties>
+        <property name="v$session.program" value="DataGrip" />
+      </driver-properties>
+    </data-source>
+  </component>
+</project>
