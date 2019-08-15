@@ -5,10 +5,8 @@ import dao.BaseDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 public class BaseDaoImp<T> implements BaseDao<T> {

@@ -86,7 +86,7 @@ public class KnowledgeRepositoryEntity {
         return Objects.hash(this.id, this.typeId, this.number, this.description, this.date);
     }
 
-    //@JsonIgnore
+    @JsonIgnore
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     public KnowledgeTypeEntity getKnowledgeTypeByTypeId() {
