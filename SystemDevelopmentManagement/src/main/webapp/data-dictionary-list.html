@@ -35,14 +35,16 @@
     <div class="text-c">
         <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
         <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
-		</select>
-		</span> 日期范围：
-        <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
-               class="input-text Wdate" style="width:120px;">
+		<label>
+            <select name="" class="select">
+                <option value="0">全部分类</option>
+                <option value="1">分类一</option>
+                <option value="2">分类二</option>
+            </select>
+        </label>
+		</span>
+        <label for="logmin">日期范围：</label><input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
+                                           class="input-text Wdate" style="width:120px;">
         <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
                class="input-text Wdate" style="width:120px;">
         <input type="text" placeholder=" 请输入关键字！" style="width:250px" class="input-text">
@@ -93,34 +95,9 @@
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     $(() => {
-        // $.ajax({
-        //     url: 'controller/dataDictionaryAllByPage',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     sync: true,
-        //     data: {pageNumber: 1, pageSize: 10},
-        //     success: (data) => {
-        //         $('#data_count').text(data.totalRecords);
-        //         for (var i = 0; i < data.data.length; ++i) {
-        //             $('#data_content').append('<tr class="text-c">\n' +
-        //                 '                <td><label><input type="checkbox" value="" name=""></label></td>\n' +
-        //                 '                <td>'+data.data[i].id+'</td>\n' +
-        //                 '                <td class="text-l"><u style="cursor:pointer" class="text-primary"\n' +
-        //                 '                                      onClick="data_dictionary_edit(\'查看\',\'data-dictionary-zhang.html\',\'10001\')" title="查看">'+data.data[i].dataType+'</u></td>\n' +
-        //                 '                <td>'+data.data[i].abbreviation+'</td>\n' +
-        //                 '                <td>'+data.data[i].fullName+'</td>\n' +
-        //                 '                <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onClick="data_dictionary_edit(\'数据字典编辑\',\'data-dictionary-add.html\',\'10001\')" href="javascript:;" title="编辑"><i\n' +
-        //                 '                        class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"\n' +
-        //                 '                                                                 onClick="data_dictionary_del(this,\''+data.data[i].id+'\')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td></tr>');
-        //         }
-        //     },
-        //     error: () => {
-        //         layer.msg('網絡出錯!請重試！', {icon: 1, time: 1000});
-        //     }
-        // });
         $('#data_table').dataTable({
             ajax: {
-                url: 'controller/dataDictionaryAll',
+                url: '/controller/dataDictionaryAll',
                 type: 'POST',
                 dataType: 'json',
                 //data: {pageNumber: 1, pageSize: 10}
@@ -174,32 +151,13 @@
             }
         });
     });
-    // $('.table-sort').dataTable({
-    //     "aaSorting": [[1, "desc"]],//默认第几个排序
-    //     "bStateSave": true,//状态保存
-    //     "pading": false,
-    //     "aoColumnDefs": [
-    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-    //         {"orderable": false, "aTargets": [0, 8]}// 不参与排序的列
-    //     ]
-    // });
-
-    /*资讯-添加*/
-    function data_dictionary_add(title, url, w, h) {
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
 
     /*资讯-编辑*/
     function data_dictionary_edit(title, url, id, w, h) {
         var index = layer.open({
             type: 2,
             title: title,
-            content: url+'?id='+id
+            content: url + '?id=' + id
         });
         layer.full(index);
     }
@@ -228,27 +186,6 @@
         });
     }
 
-    /*资讯-审核*/
-    function data_dictionary_shenhe(obj, id) {
-        layer.confirm('审核文章？', {
-                btn: ['通过', '不通过', '取消'],
-                shade: false,
-                closeBtn: 0
-            },
-            function () {
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="data_dictionary_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-                $(obj).remove();
-                layer.msg('已发布', {icon: 6, time: 1000});
-            },
-            function () {
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="data_dictionary_apply(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-                $(obj).remove();
-                layer.msg('未通过', {icon: 5, time: 1000});
-            });
-    }
-
     /*资讯-下架*/
     function data_dictionary_stop(obj, id) {
         layer.confirm('确认要下架吗？', function (index) {
@@ -267,13 +204,6 @@
             $(obj).remove();
             layer.msg('已发布!', {icon: 6, time: 1000});
         });
-    }
-
-    /*资讯-申请上线*/
-    function data_dictionary_apply(obj, id) {
-        $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-        $(obj).parents("tr").find(".td-manage").html("");
-        layer.msg('已提交申请，耐心等待审核!', {icon: 1, time: 2000});
     }
 
 </script>

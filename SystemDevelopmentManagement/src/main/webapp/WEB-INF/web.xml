@@ -20,7 +20,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <filter>
-        <filter-name>encoding</filter-name>
+        <filter-name>encodingSpringMVC</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
@@ -29,10 +29,10 @@
     </filter>
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
-        <url-pattern>/controller/*</url-pattern>
+        <url-pattern>controller/*</url-pattern>
     </servlet-mapping>
     <filter-mapping>
-        <filter-name>encoding</filter-name>
-        <url-pattern>/controller/*</url-pattern>
+        <filter-name>encodingSpringMVC</filter-name>
+        <url-pattern>controller/*</url-pattern>
     </filter-mapping>
 </web-app>
