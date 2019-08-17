@@ -75,30 +75,7 @@
                 <th width="120">操作</th>
             </tr>
             </thead>
-            <tbody id="data_content">
-            <!--            <tr class="text-c">-->
-            <!--                <td><input type="checkbox" value="" name=""></td>-->
-            <!--                <td>10002</td>-->
-            <!--                <td class="text-l"><u style="cursor:pointer" class="text-primary"-->
-            <!--                                      onClick="Api_component_edit('查看','Api_component-zhang.html','10002')" title="查看">资讯标题</u></td>-->
-            <!--                <td>行业动态</td>-->
-            <!--                <td>H-ui</td>-->
-            <!--                <td>2014-6-11 11:11:42</td>-->
-            <!--                <td>21212</td>-->
-            <!--                <td class="td-status"><span class="label label-success radius">草稿</span></td>-->
-            <!--                <td class="f-14 td-manage">-->
-            <!--                    <a style="text-decoration:none" onClick="Api_component_shenhe(this,'10001')" href="javascript:"-->
-            <!--                       title="审核">审核</a>-->
-            <!--                    <a style="text-decoration:none" class="ml-5"-->
-            <!--                       nClick="Api_component_edit('资讯编辑','knowledge-repository-add.html','10001')" href="javascript:" title="编辑">-->
-            <!--                        <i class="Hui-iconfont">&#xe6df;</i>-->
-            <!--                    </a>-->
-            <!--                    <a style="text-decoration:none" class="ml-5" onClick="Api_component_del(this,'10001')" href="javascript:"-->
-            <!--                       title="删除">-->
-            <!--                        <i class="Hui-iconfont">&#xe6e2;</i>-->
-            <!--                    </a>-->
-            <!--                </td>-->
-            <!--            </tr>-->
+            <tbody>
             </tbody>
         </table>
     </div>
@@ -114,33 +91,9 @@
 <script type="text/javascript" src="lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+    let table;
     $(() => {
-        // $.ajax({
-        //     url: 'controller/apiComponentAllByPage',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     sync: true,
-        //     data: {pageNumber: 1, pageSize: 10},
-        //     success: (data) => {
-        //         $('#totalRecords').text(data.totalRecords);
-        //         // for (var i = 0; i < data.data.length; ++i) {
-        //         //     $('#data_content').append('<tr class="text-c">\n' +
-        //         //         '                <td><label><input type="checkbox" value="" name=""></label></td>\n' +
-        //         //         '                <td>'+data.data[i].id+'</td>\n' +
-        //         //         '                <td class="text-l"><u style="cursor:pointer" class="text-primary" title="查看">'+data.data[i].name+'</u></td>\n' +
-        //         //         '                <td>'+data.data[i].apiComponentTypeByTypeId.name+'</td>\n' +
-        //         //         '                <td>'+data.data[i].functionMacrotaxonomy+'</td>\n' +
-        //         //         '                <td class="f-14 td-manage">' +
-        //         //         '<a style="text-decoration:none" class="ml-5" onClick="Api_component_edit(\'API及組件编辑\',\'api-component-add.html\',\''+data.data[i].id+'\')" href="javascript:;" ' +
-        //         //         'title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"\n' +
-        //         //         '                                                                 onClick="Api_component_del(this,\''+data.data[i].id+'\')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td></tr>');
-        //         // }
-        //         },
-        //     error: () => {
-        //         layer.msg('網絡出錯!請重試！', {icon: 1, time: 1000});
-        //     }
-        // });
-        $('#api_table').dataTable({
+        table = $('#api_table').DataTable({
             ajax: {
                 url: 'controller/apiComponentAll',
                 type: 'POST',
@@ -157,13 +110,18 @@
             //dataSrc:'data',
             "pading": true,
             'columns': [
-                {defaultContent: '<label><input type="checkbox" value="" name=""></label>'},
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0,
+                    defaultContent: '<label><input type="checkbox" value="" name=""></label>'
+                },
                 {data: 'id'},
                 {data: 'name'},
                 {
                     data: 'apiComponentTypeByTypeId.name',
                     render: (data, type, full, meta) => {
-                        console.log('type:'+type+' meta:'+meta.toString()+' full:'+full.toString()+' data:'+data);
+                        console.log('type:' + type + ' meta:' + meta.toString() + ' full:' + full.toString() + ' data:' + data);
                         return data;
                     }
                 },
@@ -218,7 +176,8 @@
                 data: {'id': id},
                 success: function (data) {
                     if (data.result) {
-                        $(obj).parents("tr").remove();
+                        $(obj).parent().parent().addClass('selected');
+                        table.row('.selected').remove().draw(false);
                         layer.msg('已删除!', {icon: 1, time: 1000});
                     } else {
                         layer.msg('删除出錯,請重試!', {icon: 1, time: 1000});
@@ -226,11 +185,10 @@
                 },
                 error: function (data) {
                     console.log(data.msg);
-                },
+                }
             });
         });
     }
-
 </script>
 </body>
 </html>

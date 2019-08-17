@@ -43,11 +43,17 @@
             </select>
         </label>
 		</span>
-        <label for="logmin">日期范围：</label><input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
+        <label for="logmin">日期范围：</label><input type="text"
+                                                onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })"
+                                                id="logmin"
+                                                class="input-text Wdate" style="width:120px;">
+        <label for="logmax"></label><input type="text"
+                                           onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })"
+                                           id="logmax"
                                            class="input-text Wdate" style="width:120px;">
-        <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
-               class="input-text Wdate" style="width:120px;">
-        <input type="text" placeholder=" 请输入关键字！" style="width:250px" class="input-text">
+        <label>
+            <input type="text" placeholder=" 请输入关键字！" style="width:250px" class="input-text">
+        </label>
         <button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
@@ -94,15 +100,16 @@
 <script type="text/javascript" src="lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+    let table;
     $(() => {
-        $('#data_table').dataTable({
+        table=$('#data_table').DataTable({
             ajax: {
                 url: '/controller/dataDictionaryAll',
                 type: 'POST',
                 dataType: 'json',
                 //data: {pageNumber: 1, pageSize: 10}
             },
-            "aaSorting": [[1, "desc"]],//默认第几个排序
+            "aaSorting": [[0, "desc"]],//默认第几个排序
             "bStateSave": true,//状态保存
             'bPaginate': true,
             bDeferRender: true,
@@ -112,8 +119,12 @@
             //dataSrc:'data',
             "pading": true,
             'columns': [
-                {defaultContent: '<label><input type="checkbox" value="" name=""></label>'},
-                {data: 'id'},
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0,
+                    defaultContent: '<label><input type="checkbox" value="" name=""></label>'
+                }, {data: 'id'},
                 {
                     data: 'dataType',
                     render: (data, type, full, meta) => {
@@ -164,7 +175,7 @@
 
     /*资讯-删除*/
     function data_dictionary_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
+        layer.confirm('确认要删除吗？', () => {
             $.ajax({
                 type: 'POST',
                 async: true,
@@ -173,7 +184,8 @@
                 data: {'id': id},
                 success: function (data) {
                     if (data.result) {
-                        $(obj).parents("tr").remove();
+                        $(obj).parent().parent().addClass('selected');
+                        table.row('.selected').remove().draw(false);
                         layer.msg('已删除!', {icon: 1, time: 1000});
                     } else {
                         layer.msg('删除出錯,請重試!', {icon: 1, time: 1000});
@@ -185,27 +197,6 @@
             });
         });
     }
-
-    /*资讯-下架*/
-    function data_dictionary_stop(obj, id) {
-        layer.confirm('确认要下架吗？', function (index) {
-            $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="data_dictionary_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-            $(obj).remove();
-            layer.msg('已下架!', {icon: 5, time: 1000});
-        });
-    }
-
-    /*资讯-发布*/
-    function data_dictionary_start(obj, id) {
-        layer.confirm('确认要发布吗？', function (index) {
-            $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="data_dictionary_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-            $(obj).remove();
-            layer.msg('已发布!', {icon: 6, time: 1000});
-        });
-    }
-
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
