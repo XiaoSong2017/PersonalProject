@@ -32,31 +32,16 @@
     </a>
 </nav>
 <div class="page-container">
-    <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
-		</select>
-		</span> 日期范围：
-        <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
-               class="input-text Wdate" style="width:120px;">
-        <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
-               class="input-text Wdate" style="width:120px;">
-        <input type="text" placeholder=" 请输入关键字！" style="width:250px" class="input-text">
-        <button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
-    </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
-        <span class="l">
-            <a href="javascript:" onclick="datadel()" class="btn btn-danger radius">
+        <span class="l btn-group">
+            <a href="javascript:" onclick="datadel()" class="btn btn-danger-outline radius">
                 <i class="Hui-iconfont">&#xe6e2;</i>批量删除
             </a>
-            <a class="btn btn-primary radius" data-title="添加API及組件" data-href="api-component-add.html"
+            <a class="btn btn-secondary-outline radius" data-title="添加API及組件" data-href="api-component-add.html"
                onclick="Hui_admin_tab(this)" href="javascript:">
                 <i class="Hui-iconfont">&#xe600;</i>添加組件
             </a>
+            <a onclick="removeIframe()" class="btn btn-default-outline radius">关闭选项卡</a>
         </span>
         <!--        <span class="r">共有数据：<strong id="totalRecords"></strong> 条</span>-->
     </div>
@@ -100,7 +85,7 @@
                 dataType: 'json',
                 //data: {pageNumber: 1, pageSize: 10}
             },
-            "aaSorting": [[0, "desc"]],//默认第几个排序
+            "aaSorting": [[2, "desc"]],//默认第几个排序
             "bStateSave": true,//状态保存
             'bPaginate': true,
             bDeferRender: true,
