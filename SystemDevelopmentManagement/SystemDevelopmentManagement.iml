@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="sessionFactory" value="746e3f9e-5cb2-4ae3-ad8e-ff3e57331004" />
+        </datasource-map>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
   <component name="POM File Configuration" pomFile="" />
 </module>

@@ -2,11 +2,14 @@ package entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "KNOWLEDGE_TYPES")
 public class KnowledgeTypeEntity {
     private Integer id;
@@ -41,7 +44,7 @@ public class KnowledgeTypeEntity {
         if (this == o) {
             return true;
         } else if (o != null && this.getClass() == o.getClass()) {
-            KnowledgeTypeEntity that = (KnowledgeTypeEntity)o;
+            KnowledgeTypeEntity that = (KnowledgeTypeEntity) o;
             return this.id.equals(that.id) && Objects.equals(this.name, that.name);
         } else {
             return false;

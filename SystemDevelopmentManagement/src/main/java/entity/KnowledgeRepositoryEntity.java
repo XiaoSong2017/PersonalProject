@@ -1,12 +1,14 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "KNOWLEDGE_REPOSITORY")
 public class KnowledgeRepositoryEntity {
     private Integer id;
@@ -75,7 +77,7 @@ public class KnowledgeRepositoryEntity {
         if (this == o) {
             return true;
         } else if (o != null && this.getClass() == o.getClass()) {
-            KnowledgeRepositoryEntity that = (KnowledgeRepositoryEntity)o;
+            KnowledgeRepositoryEntity that = (KnowledgeRepositoryEntity) o;
             return this.id.equals(that.id) && this.typeId.equals(that.typeId) && Objects.equals(this.number, that.number) && Objects.equals(this.description, that.description) && Objects.equals(this.date, that.date);
         } else {
             return false;

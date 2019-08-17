@@ -2,11 +2,14 @@ package entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "API_COMPONENT_TYPES")
 public class ApiComponentTypeEntity {
     private Integer id;

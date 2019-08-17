@@ -1,9 +1,12 @@
 package entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "DATA_DICTIONARIES")
 public class DataDictionaryEntity {
     private Integer id;
@@ -70,7 +73,7 @@ public class DataDictionaryEntity {
         if (this == o) {
             return true;
         } else if (o != null && this.getClass() == o.getClass()) {
-            DataDictionaryEntity that = (DataDictionaryEntity)o;
+            DataDictionaryEntity that = (DataDictionaryEntity) o;
             return this.id.equals(that.id) && Objects.equals(this.name, that.name) && Objects.equals(this.abbreviation, that.abbreviation) && Objects.equals(this.fullName, that.fullName) && Objects.equals(this.dataType, that.dataType);
         } else {
             return false;

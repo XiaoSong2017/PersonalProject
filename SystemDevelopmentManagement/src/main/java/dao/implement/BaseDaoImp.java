@@ -38,7 +38,6 @@ public class BaseDaoImp<T> implements BaseDao<T> {
             e.printStackTrace();
             return null;
         }
-
         return list.size() == 0 ? null : (T) list.get(0);
     }
 
