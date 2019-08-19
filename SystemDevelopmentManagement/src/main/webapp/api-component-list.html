@@ -34,7 +34,7 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l btn-group">
-            <a href="javascript:" onclick="datadel()" class="btn btn-danger-outline radius">
+            <a href="javascript:" onclick="batchToDelete()" class="btn btn-danger-outline radius">
                 <i class="Hui-iconfont">&#xe6e2;</i>批量删除
             </a>
             <a class="btn btn-secondary-outline radius" data-title="添加API及組件" data-href="api-component-add.html"
@@ -51,7 +51,7 @@
             <thead>
             <tr class="text-c">
                 <th width="25">
-                    <label><input type="checkbox" name="" value=""></label>
+                    <label><input type="checkbox" name="batch" value="-1"></label>
                 </th>
                 <th width="80">ID</th>
                 <th>名稱</th>
@@ -96,17 +96,20 @@
             "pading": true,
             'columns': [
                 {
+                    data: 'id',
                     "searchable": false,
                     "orderable": false,
                     "targets": 0,
-                    defaultContent: '<label><input type="checkbox" value="" name=""></label>'
+                    render: (data, type, full, meta) => {
+                        return '<label><input type="checkbox" value="' + data + '" name="batch"></label>';
+                    }
                 },
                 {data: 'id'},
                 {data: 'name'},
                 {
                     data: 'apiComponentTypeByTypeId.name',
                     render: (data, type, full, meta) => {
-                        console.log('type:' + type + ' meta:' + meta.toString() + ' full:' + full.toString() + ' data:' + data);
+                        //console.log('type:' + type + ' meta:' + meta.toString() + ' full:' + full.toString() + ' data:' + data);
                         return data;
                     }
                 },
@@ -174,6 +177,37 @@
             });
         });
     }
+
+    function batchToDelete() {
+        layer.confirm('确认要批量删除？', () => {
+            const ids = [];
+            $('input[name="batch"]:checked').each(function () {
+                const a = $(this).val();
+                if (a !== '-1') {
+                    ids.push(a);
+                    //console.log($(this).parent().parent().parent());
+                    $(this).parent().parent().parent().toggleClass('selected');
+                }
+            });
+            //console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: 'controller/batchDeleteApiComponent',
+                async: true,
+                dataType: 'json',
+                data: {ids: ids},
+                success: function (data) {
+                    if (data.result) {
+                        table.rows('.selected').remove().draw();
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    } else {
+                        layer.msg('删除出錯,請重試!', {icon: 1, time: 1000});
+                    }
+                },
+                error: function (data) {
+                    console.log(data.msg);
+                }
+            });
+        });
+    }
 </script>
-</body>
-</html>

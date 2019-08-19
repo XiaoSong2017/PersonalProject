@@ -34,7 +34,7 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l btn-group">
-            <a href="javascript:" onclick="datadel()" class="btn btn-danger-outline radius">
+            <a href="javascript:" onclick="batchToDelete()" class="btn btn-danger-outline radius">
                 <i class="Hui-iconfont">&#xe6e2;</i>批量删除
             </a>
             <a class="btn btn-secondary-outline radius" data-title="添加知識庫" data-href="knowledge-repository-add.html"
@@ -50,7 +50,7 @@
             <thead>
             <tr class="text-c">
                 <th width="25">
-                    <label><input type="checkbox" name="" value=""></label>
+                    <label><input type="checkbox" name="batch" value="-1"></label>
                 </th>
                 <th width="80">ID</th>
                 <th>類別</th>
@@ -78,7 +78,7 @@
 <script type="text/javascript">
     let table;
     $(() => {
-        table=$('#knowledge_table').DataTable({
+        table = $('#knowledge_table').DataTable({
             ajax: {
                 url: 'controller/knowledgeRepositoryAll',
                 type: 'POST',
@@ -95,10 +95,14 @@
             "pading": true,
             'columns': [
                 {
+                    data: 'id',
                     "searchable": false,
                     "orderable": false,
                     "targets": 0,
-                    defaultContent: '<label><input type="checkbox" value="" name=""></label>'},
+                    render: (data, type, full, meta) => {
+                        return '<label><input type="checkbox" value="' + data + '" name="batch"></label>';
+                    }
+                },
                 {data: 'id'},
                 {data: 'knowledgeTypeByTypeId.name'},
                 {data: 'number'},
@@ -141,7 +145,7 @@
         var index = layer.open({
             type: 2,
             title: title,
-            content: url+'?id='+id
+            content: url + '?id=' + id
         });
         layer.full(index);
     }
@@ -167,6 +171,39 @@
                 error: function (data) {
                     console.log(data.msg);
                 },
+            });
+        });
+    }
+
+    function batchToDelete() {
+        layer.confirm('确认要批量删除？', () => {
+            const ids = [];
+            $('input[name="batch"]:checked').each(function () {
+                const a = $(this).val();
+                if (a !== '-1') {
+                    ids.push(a);
+                    //console.log($(this).parent().parent().parent());
+                    $(this).parent().parent().parent().toggleClass('selected');
+                }
+            });
+            //console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: 'controller/batchDeleteKnowledgeRepository',
+                async: true,
+                dataType: 'json',
+                data: {ids: ids},
+                success: function (data) {
+                    if (data.result) {
+                        table.rows('.selected').remove().draw();
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    } else {
+                        layer.msg('删除出錯,請重試!', {icon: 1, time: 1000});
+                    }
+                },
+                error: function (data) {
+                    console.log(data.msg);
+                }
             });
         });
     }

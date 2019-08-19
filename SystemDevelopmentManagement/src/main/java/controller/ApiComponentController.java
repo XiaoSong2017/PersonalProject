@@ -10,6 +10,7 @@ import entity.ApiComponentTypeEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.ApiComponentService;
 
@@ -75,6 +76,14 @@ public class ApiComponentController {
     public String updateApiComponent(@NotNull ApiComponentEntity apiComponentEntity) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", apiComponentService.updateApiComponent(apiComponentEntity));
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "/batchDeleteApiComponent", method = RequestMethod.POST)
+    @ResponseBody
+    public String batchDeleteApiComponent(@RequestParam(value = "ids[]") Integer[] ids){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", apiComponentService.batchDeleteApiComponent(List.of(ids)));
         return jsonObject.toJSONString();
     }
 }

@@ -10,6 +10,7 @@ import entity.DataDictionaryEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.DataDictionaryService;
 
@@ -66,6 +67,14 @@ public class DataDictionaryController {
     public String updateDataDictionary(@NotNull DataDictionaryEntity dataDictionary) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", dataDictionaryService.updateDataDictionary(dataDictionary));
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "/batchDeleteDataDictionary", method = RequestMethod.POST)
+    @ResponseBody
+    public String batchDeleteDataDictionary(@RequestParam(value = "ids[]") Integer[] ids){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", dataDictionaryService.batchDeleteDataDictionary(List.of(ids)));
         return jsonObject.toJSONString();
     }
 }

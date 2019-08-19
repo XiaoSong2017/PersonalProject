@@ -64,4 +64,9 @@ public class KnowledgeRepositoryService {
     public List<KnowledgeTypeEntity> getKnowledgeRepositoryTypeAll() {
         return knowledgeTypeEntityDao.getAll(KnowledgeTypeEntity.class);
     }
+
+    @Transactional
+    public boolean batchDeleteKnowledgeRepository(List<Object> ids) {
+        return knowledgeRepositoryEntityDao.batchToDelete(KnowledgeRepositoryEntity.class,ids);
+    }
 }

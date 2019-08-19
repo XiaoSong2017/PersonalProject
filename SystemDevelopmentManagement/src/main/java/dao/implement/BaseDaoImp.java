@@ -4,9 +4,12 @@ import bean.Page;
 import dao.BaseDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.query.Query;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.util.Arrays;
 import java.util.List;
 
 public class BaseDaoImp<T> implements BaseDao<T> {
@@ -101,7 +104,7 @@ public class BaseDaoImp<T> implements BaseDao<T> {
     @Override
     public boolean batchToSave(List<T> entities) {
         for (int i = 0; i < entities.size(); ++i) {
-            this.sessionFactory.getCurrentSession().save(entities.get(i));
+            sessionFactory.getCurrentSession().save(entities.get(i));
             if (i % 20 == 0) {
                 this.sessionFactory.getCurrentSession().flush();
                 this.sessionFactory.getCurrentSession().clear();
@@ -121,17 +124,28 @@ public class BaseDaoImp<T> implements BaseDao<T> {
 
     @Override
     public boolean batchToDelete(Class<T> entityClass, List<Object> id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete from " + entityClass.getSimpleName() + " en where en.id=?1");
-        try {
-            Class<?> type = entityClass.getDeclaredField("id").getType();
+        //Query query = sessionFactory.getCurrentSession().createQuery("delete from " + entityClass.getSimpleName() + " en where en.id=?1");
+        sessionFactory.getCurrentSession().doWork(connection -> {
+            System.out.println("ids:" + Arrays.toString(id.toArray()));
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + ((AbstractEntityPersister) sessionFactory.getClassMetadata(entityClass)).getTableName() + " en WHERE en.ID=?");
             for (Object i : id) {
-                query.setParameter(1, type.cast(i));
+                preparedStatement.setObject(1, i);
+                preparedStatement.addBatch();
             }
-            query.executeUpdate();
-            return true;
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            return false;
-        }
+            preparedStatement.executeBatch();
+            preparedStatement.close();
+        });
+        return true;
+//        try {
+//            Class<?> type = entityClass.getDeclaredField("id").getType();
+//            for (Object i : id) {
+//                query.setParameter(1, type.cast(i));
+//            }
+//            query.executeUpdate();
+//            return true;
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
     }
 }

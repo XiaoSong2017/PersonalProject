@@ -49,4 +49,9 @@ public class DataDictionaryService {
     public boolean updateDataDictionary(DataDictionaryEntity dataDictionary) {
         return dataDictionaryEntityDao.update(dataDictionary);
     }
+
+    @Transactional
+    public boolean batchDeleteDataDictionary(List<Object> ids) {
+        return dataDictionaryEntityDao.batchToDelete(DataDictionaryEntity.class,ids);
+    }
 }

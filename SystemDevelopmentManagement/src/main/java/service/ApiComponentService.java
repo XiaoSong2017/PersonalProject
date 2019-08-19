@@ -32,6 +32,7 @@ public class ApiComponentService {
         return apiComponentEntityDao.getAll(ApiComponentEntity.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public Page<ApiComponentEntity> getAllByPage(int pageNumber, int pageSize) {
         return apiComponentEntityDao.getAllByPage(ApiComponentEntity.class, pageNumber, pageSize);
@@ -61,5 +62,10 @@ public class ApiComponentService {
     @Transactional(readOnly = true)
     public ApiComponentEntity getApiComponentById(Integer id) {
         return apiComponentEntityDao.getById(ApiComponentEntity.class,id);
+    }
+
+    @Transactional
+    public boolean batchDeleteApiComponent(List<Object> id) {
+        return apiComponentEntityDao.batchToDelete(ApiComponentEntity.class,id);
     }
 }

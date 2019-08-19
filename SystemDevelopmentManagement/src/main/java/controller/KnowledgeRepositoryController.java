@@ -10,6 +10,7 @@ import entity.KnowledgeTypeEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.KnowledgeRepositoryService;
 
@@ -73,6 +74,14 @@ public class KnowledgeRepositoryController {
     public String updateKnowledgeRepository(@NotNull KnowledgeRepositoryEntity knowledgeRepository) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", knowledgeRepositoryService.updateKnowledgeRepository(knowledgeRepository));
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "/batchDeleteKnowledgeRepository", method = RequestMethod.POST)
+    @ResponseBody
+    public String batchDeleteKnowledgeRepository(@RequestParam(value = "ids[]") Integer[] ids){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", knowledgeRepositoryService.batchDeleteKnowledgeRepository(List.of(ids)));
         return jsonObject.toJSONString();
     }
 }
