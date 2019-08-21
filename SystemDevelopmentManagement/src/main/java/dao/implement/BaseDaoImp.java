@@ -126,8 +126,10 @@ public class BaseDaoImp<T> implements BaseDao<T> {
     public boolean batchToDelete(Class<T> entityClass, List<Object> id) {
         //Query query = sessionFactory.getCurrentSession().createQuery("delete from " + entityClass.getSimpleName() + " en where en.id=?1");
         sessionFactory.getCurrentSession().doWork(connection -> {
-            System.out.println("ids:" + Arrays.toString(id.toArray()));
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + ((AbstractEntityPersister) sessionFactory.getClassMetadata(entityClass)).getTableName() + " en WHERE en.ID=?");
+            //System.out.println("ids:" + Arrays.toString(id.toArray()));
+            AbstractEntityPersister abstractEntityPersister=(AbstractEntityPersister) sessionFactory.getClassMetadata(entityClass);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + abstractEntityPersister.getTableName() + " en WHERE en."+abstractEntityPersister.getIdentifierPropertyName()+" =?");
+//            System.out.println("IDName:"+abstractEntityPersister.getIdentifierPropertyName());
             for (Object i : id) {
                 preparedStatement.setObject(1, i);
                 preparedStatement.addBatch();
