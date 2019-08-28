@@ -9,7 +9,6 @@ import org.hibernate.query.Query;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.util.List;
 
