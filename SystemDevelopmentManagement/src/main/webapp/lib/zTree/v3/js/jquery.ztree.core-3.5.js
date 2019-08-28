@@ -642,7 +642,7 @@
 			if (!setting.view.txtSelectedEnable) {
 				// for can't select text
 				o.bind('selectstart', function(e){
-					var node
+					var node;
 					var n = e.originalEvent.srcElement.nodeName.toLowerCase();
 					return (n === "input" || n === "textarea" );
 				}).css({
@@ -1460,7 +1460,7 @@
 			} else if (setting.async.enable) {
 				if (!view.asyncNode(setting, node)) {
 					view.expandCollapseNode(setting, node, !node.open);
-					return;
+
 				}
 			} else if (node) {
 				view.expandCollapseNode(setting, node, !node.open);
@@ -1643,9 +1643,9 @@
 				refresh : function() {
 					this.setting.treeObj.empty();
 					var root = data.getRoot(setting),
-					nodes = root[setting.data.key.children]
+					nodes = root[setting.data.key.children];
 					data.initRoot(setting);
-					root[setting.data.key.children] = nodes
+					root[setting.data.key.children] = nodes;
 					data.initCache(setting);
 					view.createNodes(setting, 0, root[setting.data.key.children]);
 				},
@@ -1696,7 +1696,7 @@
 						view.setNodeFontCss(setting, node);
 					}
 				}
-			}
+			};
 			root.treeTools = zTreeTools;
 			data.setZTreeTools(setting, zTreeTools);
 

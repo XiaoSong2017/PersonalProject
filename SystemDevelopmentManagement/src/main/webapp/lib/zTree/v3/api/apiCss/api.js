@@ -283,7 +283,7 @@ var apiContent = {
 
 	},
 	bindEvent: function() {
-		$(document).bind("keydown", this.listenKeyDown)
+		$(document).bind("keydown", this.listenKeyDown);
 		this.overlayCloseBtn.bind("click", apiContent.overlayClose);
 		this.searchResultInput.bind("click", function(e) {
 			$(this).prev().get(0).focus();
@@ -569,7 +569,7 @@ var apiContent = {
 				if (!apiContent.tmpDiv) {
 					var tmpDiv = $(document.createElement("div"));
 					tmpDiv.addClass("baby_overlay_tmp");
-					$("body").append(tmpDiv)
+					$("body").append(tmpDiv);
 					apiContent.tmpDiv = $(document.createElement("div"));
 					apiContent.tmpDiv.addClass("details");
 					tmpDiv.append(apiContent.tmpDiv);
@@ -583,10 +583,10 @@ var apiContent = {
 				node.isAjax = false;
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert(ajaxMsg)
+				alert(ajaxMsg);
 				if (apiContent.tmpDiv) apiContent.tmpDiv.empty();
 				node.isAjax = false;
 			}
 		});
 	}
-}
+};

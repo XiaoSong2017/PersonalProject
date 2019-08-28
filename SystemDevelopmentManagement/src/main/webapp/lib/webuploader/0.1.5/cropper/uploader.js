@@ -177,7 +177,7 @@ var Croper = (function() {
                     if( this.width != 1 || this.height != 1 ) {
                         support = false;
                     }
-                }
+                };
                 data.src = src;
                 isBase64Supported = support;
             })();

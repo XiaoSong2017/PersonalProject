@@ -23,8 +23,8 @@
         constructor: JSelect,
         init: function(context) {
             //获取指定上下文所有select元素
-            var elems = squid.getElementsByTagName('select', context)
-            this.globalEvent()
+            var elems = squid.getElementsByTagName('select', context);
+            this.globalEvent();
             this.initView(elems)
         },
         initView: function(elems) {
@@ -34,13 +34,13 @@
                 enabled;
 
             for(; i < length; i++) {
-                elem = elems[i]
-                enabled = elem.getAttribute('data-enabled')
+                elem = elems[i];
+                enabled = elem.getAttribute('data-enabled');
                 //使用系统select
                 if(!enabled || enabled === 'true')
-                    continue
+                    continue;
                 if(squid.isVisible(elem))
-                    elem.style.display = 'none'
+                    elem.style.display = 'none';
                 
                 this.create(elem)
             }
@@ -67,63 +67,63 @@
                 top,
                 cssText; 
 
-            options = elem.getElementsByTagName('option') 
-            length = options.length
+            options = elem.getElementsByTagName('option');
+            length = options.length;
             for(; i < length; i++) {
-                option = options[i]
-                value = option.value
-                text = option.innerText || option.textContent
+                option = options[i];
+                value = option.value;
+                text = option.innerText || option.textContent;
                 
                 obj = {
                     value: value, 
                     text: text
-                }
+                };
                 if(option.selected) {
-                   selectedValue = value
-                   selectedText = text  
+                   selectedValue = value;
+                   selectedText = text;
                    obj['selected'] = true 
                 }
                 data.push(obj)
             }
 
-            lis = this.render(this.tmpl, data)
-            ul = '<ul class="select-item">' + lis + '</ul>'
+            lis = this.render(this.tmpl, data);
+            ul = '<ul class="select-item">' + lis + '</ul>';
             //
-            div = document.createElement('span')
-            div.style.display = 'none'
-            div.className = 'select-wrapper'
+            div = document.createElement('span');
+            div.style.display = 'none';
+            div.className = 'select-wrapper';
             //已选元素
-            _default = document.createElement('span')
-            _default.className = 'select-default unselectable'
-            _default.unselectable = 'on'
+            _default = document.createElement('span');
+            _default.className = 'select-default unselectable';
+            _default.unselectable = 'on';
             //让div元素能够获取焦点
-            _default.setAttribute('tabindex', '1')
-            _default.setAttribute('data-value', selectedValue)
-            _default.setAttribute('hidefocus', true)
-            _default.innerHTML = selectedText 
-            div.appendChild(_default) 
+            _default.setAttribute('tabindex', '1');
+            _default.setAttribute('data-value', selectedValue);
+            _default.setAttribute('hidefocus', true);
+            _default.innerHTML = selectedText;
+            div.appendChild(_default);
             //选择icon
-            icon = document.createElement('i')
-            icon.className = 'select-icon' 
-            div.appendChild(icon)
+            icon = document.createElement('i');
+            icon.className = 'select-icon';
+            div.appendChild(icon);
             //下拉列表
-            wrapper = document.createElement('span')
-            wrapper.className = 'select-list hide'
-            wrapper.innerHTML = ul
+            wrapper = document.createElement('span');
+            wrapper.className = 'select-list hide';
+            wrapper.innerHTML = ul;
             //生成新的元素
-            div.appendChild(wrapper)
+            div.appendChild(wrapper);
             //插入到select元素后面
-            elem.parentNode.insertBefore(div, null)
+            elem.parentNode.insertBefore(div, null);
             //获取select元素left top值
             //先设置select显示，取完left, top值后重新隐藏
-            elem.style.display = 'block'
+            elem.style.display = 'block';
             //事件绑定
-            this.sysEvent(div)
-            position = squid.position(elem)
-            elem.style.display = 'none'
-            left = position.left
-            top = position.top
-            cssText = ' display: inline-block;'
+            this.sysEvent(div);
+            position = squid.position(elem);
+            elem.style.display = 'none';
+            left = position.left;
+            top = position.top;
+            cssText = ' display: inline-block;';
             div.style.cssText = cssText
         },
         globalEvent: function() {
@@ -143,35 +143,35 @@
                 switch(className) {
                     case 'select-icon':
                     case 'select-default unselectable':
-                        elem = target.tagName.toLowerCase() === 'span' ? target : target.previousSibling
-                        wrapper = elem.nextSibling.nextSibling
+                        elem = target.tagName.toLowerCase() === 'span' ? target : target.previousSibling;
+                        wrapper = elem.nextSibling.nextSibling;
                          
                         //firefox 鼠标右键会触发click事件
                         //鼠标左键点击执行
                         if(event.button === 0) {
                             //初始化选中元素
-                            that.initSelected(elem)
+                            that.initSelected(elem);
                             if(squid.isHidden(wrapper)) {
-                                status = 'inline-block'
+                                status = 'inline-block';
                                 //关闭所有展开jselect
                                 that.closeSelect() 
                             }else{
                                 status = 'none' 
                             }
-                            wrapper.style.display = status 
+                            wrapper.style.display = status;
                             elem.focus() 
                         }else if(event.button === 2){
                             wrapper.style.display = 'none' 
                         }
-                        that.zIndex(wrapper)
-                        break
+                        that.zIndex(wrapper);
+                        break;
                     case 'select-option':
                     case 'select-option selected':
                         if(event.button === 0) {
-                            that.fireSelected(target, target.parentNode.parentNode.previousSibling.previousSibling)
+                            that.fireSelected(target, target.parentNode.parentNode.previousSibling.previousSibling);
                             wrapper.style.display = 'none' 
                         }
-                        break
+                        break;
                     default:
                         while(target && target.nodeType !== 9) {
                             if(target.nodeType === 1) {
@@ -181,7 +181,7 @@
                             }
                             target = target.parentNode
                         }
-                        that.closeSelect()
+                        that.closeSelect();
                         break
                 } 
             })
@@ -197,17 +197,17 @@
 
             squid.on(elem, 'mouseover', function(event) {
                 if(!that.doScrolling) {
-                    target = event.target
+                    target = event.target;
                     that.activate(target)  
                 }
-            })
+            });
 
             squid.on(elem, 'mouseout', function(event) {
                 if(!that.doScrolling) {
-                    target = event.target 
+                    target = event.target;
                     that.deactivate(target)
                 }
-            })
+            });
 
             squid.on(stand, 'keydown', function(event) {
                var keyCode = event.keyCode;
@@ -215,22 +215,22 @@
                switch(keyCode) {
                    //回车选中
                    case 13:
-                        that.enter(dropdown) 
-                        break
+                        that.enter(dropdown);
+                        break;
                    //向上键
                    case 38:
-                       that.doScrolling = true
-                       that.up(dropdown) 
-                       break
+                       that.doScrolling = true;
+                       that.up(dropdown);
+                       break;
                    //向下键
                    case 40:
-                       that.doScrolling = true
-                       that.down(dropdown) 
-                       break
+                       that.doScrolling = true;
+                       that.down(dropdown);
+                       break;
                    default:
                        break
                } 
-            })
+            });
 
             squid.on(stand, keyup, function(event) {
                var keyCode = event.keyCode;
@@ -238,16 +238,16 @@
                switch(keyCode) {
                    //回车选中
                    case 13:
-                        that.doScrolling = false
-                        break
+                        that.doScrolling = false;
+                        break;
                    //向上键
                    case 38:
-                        that.doScrolling = false
-                        break
+                        that.doScrolling = false;
+                        break;
                    //向下键
                    case 40:
-                       that.doScrolling = false
-                       break
+                       that.doScrolling = false;
+                       break;
                    default:
                        break
                }  
@@ -259,7 +259,7 @@
                 next = squid.next(cur);
             
             if(next) {
-                cur.style.zIndex = index
+                cur.style.zIndex = index;
                 next.style.zIndex = --index
             }
         },
@@ -276,30 +276,30 @@
                 hidden = false;
 
             for(; n; n = n.nextSibling) {
-                text = n.innerText || n.textContent 
-                value = n.getAttribute('data-value')
+                text = n.innerText || n.textContent;
+                value = n.getAttribute('data-value');
                 if(curText === text && curValue === value) {
                     //显示已选中元素
                     if(squid.isHidden(wrapper)) {
-                        wrapper.style.display = 'block'
+                        wrapper.style.display = 'block';
                         hidden = true
                     }
-                    max = wrapper.scrollHeight
+                    max = wrapper.scrollHeight;
                     if(n.offsetTop > (max / 2)) {
                         if(wrapper.clientHeight + wrapper.scrollTop === max) 
-                            dir = 'up'
+                            dir = 'up';
                         else
                             dir = 'down'
                     }else{
                         if(wrapper.scrollTop === min)
-                            dir = 'down'
+                            dir = 'down';
                         else
                             dir = 'up'
                     }
-                    this.inView(n, wrapper, dir) 
+                    this.inView(n, wrapper, dir);
                     if(hidden)
-                        wrapper.style.display = 'none'
-                    this.activate(n)
+                        wrapper.style.display = 'none';
+                    this.activate(n);
                     break
                 }
             } 
@@ -315,10 +315,10 @@
                 case 'li':
                     //li.select-option 元素
                     if(!~className.indexOf('selected') && (elem !== first || elem !== last)) {
-                        this.deactivate(elem)
+                        this.deactivate(elem);
                         elem.className = className + ' selected'
                     }
-                    break
+                    break;
                 default:
                     break
             } 
@@ -336,10 +336,10 @@
                         cur;
 
                     for(; i < length; i++) {
-                        cur = lis[i] 
+                        cur = lis[i];
                         cur.className = squid.trim(className.replace(' selected ', ''))
                     }
-                    break
+                    break;
                 default:
                     break
             }
@@ -349,15 +349,15 @@
                 value = elem.getAttribute('data-value'),
                 r;
 
-            s.setAttribute('data-value', value) 
+            s.setAttribute('data-value', value);
             if(s.innerText) 
-                s.innerText = text
+                s.innerText = text;
             else
-                s.textContent = text
+                s.textContent = text;
 
             //触发系统select选中，用于form表单提交
-            r = s.parentNode.previousSibling.previousSibling
-            r.value = value 
+            r = s.parentNode.previousSibling.previousSibling;
+            r.value = value;
             r.setAttribute('data-text', text)
         },
         closeSelect: function() {
@@ -367,7 +367,7 @@
                 elem;  
 
             for(; i < length; i++) {
-                elem = elems[i] 
+                elem = elems[i];
                 if(squid.isVisible(elem))
                     elem.style.display = 'none'
             }
@@ -380,11 +380,11 @@
                 i = li.index;
             
             if(i > 0) {
-                i-- 
-                cur = lis[i]
+                i--;
+                cur = lis[i];
                 //判断元素是否in view
-                this.inView(cur, elem, 'up')
-                this.activate(cur) 
+                this.inView(cur, elem, 'up');
+                this.activate(cur);
                 this.fireSelected(cur, elem.previousSibling.previousSibling) 
             }
         },
@@ -396,11 +396,11 @@
                 i = li.index;
 
             if(i < lis.length - 1) {
-                 i++ 
-                 cur = lis[i]
+                 i++;
+                 cur = lis[i];
                  //判断元素是否in view
-                 this.inView(cur, elem, 'down') 
-                 this.activate(cur)
+                 this.inView(cur, elem, 'down');
+                 this.activate(cur);
                  this.fireSelected(cur, elem.previousSibling.previousSibling)
             } 
         },
@@ -411,10 +411,10 @@
                 i,
                 cur;
 
-            li = this.getSelectedIndex(lis)
-            i = li.index
-            cur = lis[i] 
-            this.fireSelected(cur, elem.previousSibling.previousSibling) 
+            li = this.getSelectedIndex(lis);
+            i = li.index;
+            cur = lis[i];
+            this.fireSelected(cur, elem.previousSibling.previousSibling);
             this.closeSelect()
         },
         getSelectedIndex: function(elems) {
@@ -423,7 +423,7 @@
                 elem;
             
             for(; i < length; i++) {
-                elem = elems[i]
+                elem = elems[i];
                 if(~elem.className.indexOf('selected')) {
                     return {
                         index: i
@@ -444,7 +444,7 @@
                 if(offsetTop === 0) {
                     wrapper.scrollTop = offsetTop;
                 }else if(offsetTop < scrollTop) {
-                    top = offsetTop - scrollTop
+                    top = offsetTop - scrollTop;
                     this.scrollInView(wrapper, top) 
                 }
             }else{
@@ -453,7 +453,7 @@
                 if(offsetTop + elem.offsetHeight === wrapper.scrollHeight) {
                     wrapper.scrollTop = wrapper.scrollHeight - wrapper.clientHeight 
                 }else if(offsetTop + elem.offsetHeight > clientHeight + scrollTop) {
-                    top = (offsetTop + elem.offsetHeight) - (scrollTop + clientHeight)
+                    top = (offsetTop + elem.offsetHeight) - (scrollTop + clientHeight);
                     this.scrollInView(wrapper, top) 
                 }
             }
@@ -474,26 +474,26 @@
                 r = [];
 
             for(; i < length; i++) {
-               cur = data[i]
+               cur = data[i];
                item = tmpl.replace(/\{\{\w+\}\}/g, function(a) {
-                   prop = a.replace(/[\{\}]+/g, '')
-                   value = cur[prop] || ''
+                   prop = a.replace(/[\{\}]+/g, '');
+                   value = cur[prop] || '';
                    if(prop === 'class') {
-                        value += 'select-option'
+                        value += 'select-option';
                         if(cur.selected) {
                             value += ' selected' 
                         }
                    }
                         
                    return value
-               })
+               });
                r.push(item)
             }
 
             return r.join('')
         },
         tmpl: '<li class="{{class}}" data-value="{{value}}">{{text}}</li>'
-    }
+    };
 
     squid.swing.jselect = function() {
         return new JSelect() 

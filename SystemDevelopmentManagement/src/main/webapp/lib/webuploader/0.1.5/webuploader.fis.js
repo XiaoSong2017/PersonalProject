@@ -1,7 +1,7 @@
 /*! WebUploader 0.1.5 */
 
 
-var jQuery = require('example:widget/ui/jquery/jquery.js')
+var jQuery = require('example:widget/ui/jquery/jquery.js');
 
 return (function( root, factory ) {
     var modules = {},
@@ -5671,7 +5671,7 @@ return (function( root, factory ) {
                 function computeHuffmanTbl(nrcodes, std_table){
                     var codevalue = 0;
                     var pos_in_table = 0;
-                    var HT = new Array();
+                    var HT = [];
                     for (var k = 1; k <= 16; k++) {
                         for (var j = 1; j <= nrcodes[k]; j++) {
                             HT[std_table[pos_in_table]] = [];
@@ -6028,7 +6028,8 @@ return (function( root, factory ) {
                     }
                     //Encode ACs
                     var end0pos = 63; // was const... which is crazy
-                    for (; (end0pos>0)&&(DU[end0pos]==0); end0pos--) {};
+                    for (; (end0pos > 0) && (DU[end0pos] == 0); end0pos--) {
+                    }
                     //end0pos = first element in reverse order !=0
                     if ( end0pos == 0) {
                         writeBits(EOB);
@@ -6071,7 +6072,7 @@ return (function( root, factory ) {
                     if(quality) setQuality(quality);
     
                     // Initialize bit writer
-                    byteout = new Array();
+                    byteout = [];
                     bytenew=0;
                     bytepos=7;
     
@@ -6175,7 +6176,7 @@ return (function( root, factory ) {
                     //
     
                     return jpegDataUri
-            }
+            };
     
             function setQuality(quality){
                 if (quality <= 0) {
@@ -6185,7 +6186,7 @@ return (function( root, factory ) {
                     quality = 100;
                 }
     
-                if(currentQuality == quality) return // don't recalc if unchanged
+                if(currentQuality == quality) return; // don't recalc if unchanged
     
                 var sf = 0;
                 if (quality < 50) {
@@ -6203,7 +6204,7 @@ return (function( root, factory ) {
                 // var time_start = new Date().getTime();
                 if(!quality) quality = 50;
                 // Create tables
-                initCharLookupTable()
+                initCharLookupTable();
                 initHuffmanTbl();
                 initCategoryNumber();
                 initRGBYUVTable();
@@ -6214,14 +6215,13 @@ return (function( root, factory ) {
             }
     
             init();
-    
-        };
-    
+
+    }
         JPEGEncoder.encode = function( data, quality ) {
             var encoder = new JPEGEncoder( quality );
     
             return encoder.encode( data );
-        }
+        };
     
         return JPEGEncoder;
     });

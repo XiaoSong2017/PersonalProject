@@ -97,7 +97,7 @@ function stopDefault(e) {
 		// Browser globals
 		factory(jQuery);
 	}
-}
+};
 (function($){
 	var pluses = /\+/g;
 	function encode(s) {
@@ -2338,7 +2338,7 @@ function stopDefault(e) {
 					// If the event type is touch
 					if (e.type === "touchend") {
 						this.toggle();
-						return;
+
 
 						// Event type was click, not touch
 					} else {
@@ -2752,7 +2752,7 @@ function stopDefault(e) {
 				this.$suggest.hide();
 			}
 		}
-	}
+	};
 
 	$.fn[plugin] = function(options) {
 		return this.each(function() {
@@ -2780,12 +2780,12 @@ function stopDefault(e) {
 			minValue : 1,
 			maxValue : 999,
 			dis : 1,
-		}
+		};
 		var options = $.extend(defaults, options);
 		var keyCodes = {
 			up : 38,
 			down : 40
-		}
+		};
 
 		this.each(function() {
 			var that = $(this);
@@ -2819,7 +2819,7 @@ function stopDefault(e) {
 
 				if (v != "") {
 					if (v > options.minValue && v < options.maxValue) {
-						input.val(v)
+						input.val(v);
 						add.removeClass("disabled");
 						subtract.removeClass("disabled");
 					} else {
@@ -2864,7 +2864,7 @@ function stopDefault(e) {
 						: goodsCount - options.dis);
 				add.removeClass("disabled");
 				if (input.val() <= options.minValue) {
-					input.val(options.minValue)
+					input.val(options.minValue);
 					subtract.addClass("disabled");
 				}
 				if (callback) {
@@ -2908,13 +2908,13 @@ function stopDefault(e) {
 				first = str.substr(0, l1);
 				if (first != '') {
 					arr.push(first);
-				};
-				for (var i = 0; i < l2; i++) {
+                }
+                for (var i = 0; i < l2; i++) {
 					arr.push(str.substr(l1 + i * step, step));
-				};
-				str = arr.join(splitor);
-			};
-			return str;
+                }
+                str = arr.join(splitor);
+            }
+            return str;
 		}
 	});
 } (window.jQuery);
@@ -4120,7 +4120,7 @@ function stopDefault(e) {
 					$input.tooltip('show', options.errorTip);
 				}
 			}
-		}
+		};
 		if ($input.is('input:not([type=hidden])')) {
 			if (options.tooltip) {
 				$input.attr('data-toggle', 'tooltip').tooltip({
@@ -4337,7 +4337,7 @@ function displaynavbar(obj){
 	$.fn.Huihover = function(options){
 		var defaults = {
 			className:"hover",
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){			
 			var that = $(this);
@@ -4365,7 +4365,7 @@ function displaynavbar(obj){
 	$.fn.Huifocusblur = function(options){
 		var defaults = {
 			className:"focus",
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){			
 			var that = $(this);
@@ -4420,7 +4420,7 @@ function displaynavbar(obj){
 			className:"current",
 			tabEvent:"click",
 			index:0,
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){
 			var that = $(this);
@@ -4459,7 +4459,7 @@ function displaynavbar(obj){
 			trigger:'click',
 			className:"selected",
 			speed:'first',
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){	
 			var that = $(this);
@@ -4514,13 +4514,13 @@ function displaynavbar(obj){
 			maxlength : 20,
 			number : 5,
 			tagsDefault : ["Html","CSS","JS"],
-		}
+		};
 		var options = $.extend(defaults, options);
 		var keyCodes = {
 			Enter : 13,
 			Enter2 : 108,
 			Spacebar:32
-		}
+		};
 		this.each(function(){
 			var that = $(this);
 			var str = 
@@ -4683,7 +4683,7 @@ function displaynavbar(obj){
 			maxlength:140,
 			errorClass:"error",
 			exceed:true,			
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){			
 			var that = $(this);
@@ -4731,7 +4731,7 @@ function displaynavbar(obj){
 		var defaults = {
 			className:"active",
 			bigImgWidth: 300,
-		}
+		};
 		var options = $.extend(defaults, options);
 		this.each(function(){
 			var that = $(this);
@@ -4804,7 +4804,7 @@ function displaynavbar(obj){
 			$("#modal-alert").fadeIn();
 			setTimeout($.Huimodalalert.hide, speed);
 		}
-	}
+	};
 	$.Huimodalalert.hide = function() {
 		$("#modal-alert").fadeOut("normal",
 		function() {
@@ -4826,7 +4826,7 @@ function displaynavbar(obj){
 				Huialert.remove();
 			});
 		});
-	}
+	};
 	$.Huialert();
 } (window.jQuery);
 
@@ -4866,7 +4866,7 @@ function displaynavbar(obj){
 				$(".toTop").css("top", st + winh - 166);
 			}
 			
-		}		
+		};
 		$(window).on("scroll",backToTopFun);	
 	}
 } (window.jQuery);
@@ -4884,15 +4884,15 @@ function displaynavbar(obj){
 		ScrollBox.innerHTML += _tmp;
 		ScrollBox.onmouseover = function() {
 			pause = true;
-		}
+		};
 		ScrollBox.onmouseout = function() {
 			pause = false;
-		}
+		};
 		ScrollBox.scrollTop = 0;
 		var start = function() {
 			scrollT = setInterval(scrolling, speed);
 			if (!pause) ScrollBox.scrollTop += 2;
-		}
+		};
 		var scrolling = function() {
 			if (ScrollBox.scrollTop % height != 0) {
 				ScrollBox.scrollTop += 2;
@@ -4901,7 +4901,7 @@ function displaynavbar(obj){
 				clearInterval(scrollT);
 				setTimeout(start, delay);
 			}
-		}
+		};
 		setTimeout(start, delay);
 	}
 } (window.jQuery);
@@ -4934,17 +4934,17 @@ $(function() {
 		this.$element = $(element);
 		this.options = $.extend({},Button.DEFAULTS, options);
 		this.isLoading = false;
-	}
-	Button.VERSION = '3.3.0'
+	};
+	Button.VERSION = '3.3.0';
 
 	Button.DEFAULTS = {
 		loadingText: 'loading...'
-	}
+	};
 
 	Button.prototype.setState = function(state) {
-		var d = 'disabled'
-		var $el = this.$element
-		var val = $el.is('input') ? 'val': 'html'
+		var d = 'disabled';
+		var $el = this.$element;
+		var val = $el.is('input') ? 'val': 'html';
 		var data = $el.data();
 		state = state + 'Text';
 		if (data.resetText == null) $el.data('resetText', $el[val]());
@@ -4960,7 +4960,7 @@ $(function() {
 			}
 		},
 		this), 0)
-	}
+	};
 
 	Button.prototype.toggle = function() {
 		var changed = true;
@@ -4969,7 +4969,7 @@ $(function() {
 		if ($parent.length) {
 			var $input = this.$element.find('input');
 			if ($input.prop('type') == 'radio') {
-				if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
+				if ($input.prop('checked') && this.$element.hasClass('active')) changed = false;
 				else $parent.find('.active').removeClass('active')
 			}
 			if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
@@ -4978,7 +4978,7 @@ $(function() {
 		}
 
 		if (changed) this.$element.toggleClass('active')
-	}
+	};
 
 	// BUTTON PLUGIN DEFINITION
 	// ========================
@@ -4987,9 +4987,9 @@ $(function() {
 			var $this = $(this);
 			var data = $this.data('bs.button');
 			var options = typeof option == 'object' && option;
-			if (!data) $this.data('bs.button', (data = new Button(this, options)))
+			if (!data) $this.data('bs.button', (data = new Button(this, options)));
 
-			if (option == 'toggle') data.toggle()
+			if (option == 'toggle') data.toggle();
 			else if (option) data.setState(option)
 		})
 	}
@@ -5003,7 +5003,7 @@ $(function() {
 	$.fn.button.noConflict = function() {
 		$.fn.button = old;
 		return this;
-	}
+	};
 
 	// BUTTON DATA-API
 	// ===============
@@ -5089,7 +5089,7 @@ jQuery(function($) {
 			currentMarginT = parseInt($(this).next().closest('div').css('margin-top'));
 			vartop = parseInt($(this).offset().top);
 			//$(this).find('*').removeClass(itemHover);
-		}
+		};
 		$(document).on('scroll', function() {
 			varscroll = parseInt($(document).scrollTop());
 			if(menuSize != null){
@@ -5127,16 +5127,15 @@ jQuery(function($) {
 				}, 10, function(){
 
 				});
-			};
-
-			if(varscroll + topMargin < vartop){
+            }
+            if(varscroll + topMargin < vartop){
 				$('.stuckMenu').removeClass('isStuck');
 				$('.stuckMenu').next().closest('div').css({
 					'margin-top': currentMarginT + 'px'
 				}, 10);
 				$('.stuckMenu').css("position","relative");
-			};
-		});
+            }
+        });
 	});
 });
 
@@ -5165,7 +5164,7 @@ jQuery(function($) {
 			},
 			this))
 		}
-	}
+	};
 
 	Modal.VERSION = '3.3.0';
 	Modal.TRANSITION_DURATION = 300;
@@ -5175,11 +5174,11 @@ jQuery(function($) {
 		backdrop: true,
 		keyboard: true,
 		show: true,
-	}
+	};
 
 	Modal.prototype.toggle = function(_relatedTarget) {
 		return this.isShown ? this.hide() : this.show(_relatedTarget)
-	}
+	};
 
 	Modal.prototype.show = function(_relatedTarget) {
 		var that = this;
@@ -5211,7 +5210,7 @@ jQuery(function($) {
 
 			var e = $.Event('shown.bs.modal', {
 				relatedTarget: _relatedTarget
-			})
+			});
 
 			transition ? that.$element.find('.modal-dialog') // wait for modal to slide in
 			.one('bsTransitionEnd',
@@ -5219,7 +5218,7 @@ jQuery(function($) {
 				that.$element.trigger('focus').trigger(e)
 			}).emulateTransitionEnd(Modal.TRANSITION_DURATION) : that.$element.trigger('focus').trigger(e)
 		})
-	}
+	};
 
 	Modal.prototype.hide = function(e) {
 		if (e) e.preventDefault();
@@ -5231,7 +5230,7 @@ jQuery(function($) {
 		$(document).off('focusin.bs.modal');
 		this.$element.removeClass('in').attr('aria-hidden', true).off('click.dismiss.bs.modal');
 		$.support.transition && this.$element.hasClass('fade') ? this.$element.one('bsTransitionEnd', $.proxy(this.hideModal, this)).emulateTransitionEnd(Modal.TRANSITION_DURATION) : this.hideModal()
-	}
+	};
 
 	Modal.prototype.enforceFocus = function() {
 		$(document).off('focusin.bs.modal') // guard against infinite focus loop
@@ -5241,7 +5240,7 @@ jQuery(function($) {
 			}
 		},
 		this))
-	}
+	};
 
 	Modal.prototype.escape = function() {
 		if (this.isShown && this.options.keyboard) {
@@ -5252,7 +5251,7 @@ jQuery(function($) {
 		} else if (!this.isShown) {
 			this.$element.off('keydown.dismiss.bs.modal')
 		}
-	}
+	};
 
 	Modal.prototype.hideModal = function() {
 		var that = this;
@@ -5262,24 +5261,24 @@ jQuery(function($) {
 			that.resetScrollbar();
 			that.$element.trigger('hidden.bs.modal');
 		})
-	}
+	};
 
 	Modal.prototype.removeBackdrop = function() {
 		this.$backdrop && this.$backdrop.remove();
 		this.$backdrop = null;
-	}
+	};
 
 	Modal.prototype.backdrop = function(callback) {
-		var that = this
-		var animate = this.$element.hasClass('fade') ? 'fade': ''
+		var that = this;
+		var animate = this.$element.hasClass('fade') ? 'fade': '';
 
 		if (this.isShown && this.options.backdrop) {
-			var doAnimate = $.support.transition && animate
+			var doAnimate = $.support.transition && animate;
 
 			this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />').prependTo(this.$element).on('click.dismiss.bs.modal', $.proxy(function(e) {
 				if (e.target !== e.currentTarget) return this.options.backdrop == 'static' ? this.$element[0].focus.call(this.$element[0]) : this.hide.call(this)
 			},
-			this))
+			this));
 
 			if (doAnimate) this.$backdrop[0].offsetWidth; // force reflow
 			this.$backdrop.addClass('in');
@@ -5290,36 +5289,36 @@ jQuery(function($) {
 			var callbackRemove = function() {
 				that.removeBackdrop();
 				callback && callback();
-			}
+			};
 			$.support.transition && this.$element.hasClass('fade') ? this.$backdrop.one('bsTransitionEnd', callbackRemove).emulateTransitionEnd(Modal.BACKDROP_TRANSITION_DURATION) : callbackRemove()
 
 		} else if (callback) {
 			callback();
 		}
-	}
+	};
 
 	Modal.prototype.checkScrollbar = function() {
 		this.scrollbarWidth = this.measureScrollbar();
-	}
+	};
 
 	Modal.prototype.setScrollbar = function() {
 		var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10);
 		if (this.scrollbarWidth) this.$body.css('padding-right', bodyPad + this.scrollbarWidth);
-	}
+	};
 
 	Modal.prototype.resetScrollbar = function() {
 		this.$body.css('padding-right', '')
-	}
+	};
 
 	Modal.prototype.measureScrollbar = function() { // thx walsh
-		if (document.body.clientWidth >= window.innerWidth) return 0
+		if (document.body.clientWidth >= window.innerWidth) return 0;
 		var scrollDiv = document.createElement('div');
 		scrollDiv.className = 'modal-scrollbar-measure';
 		this.$body.append(scrollDiv);
 		var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 		this.$body[0].removeChild(scrollDiv);
 		return scrollbarWidth;
-	}
+	};
 
 	// MODAL PLUGIN DEFINITION
 	// =======================
@@ -5343,7 +5342,7 @@ jQuery(function($) {
 	$.fn.modal.noConflict = function() {
 		$.fn.modal = old;
 		return this;
-	}
+	};
 
 	// MODAL DATA-API
 	// ==============
@@ -5356,7 +5355,7 @@ jQuery(function($) {
 
 		if ($this.is('a')) e.preventDefault();
 		$target.one('show.bs.modal',function(showEvent) {
-			if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
+			if (showEvent.isDefaultPrevented()) return; // only register focus restorer if modal will actually get shown
 			$target.one('hidden.bs.modal',function() {
 				$this.is(':visible') && $this.trigger('focus');
 			});
@@ -5378,7 +5377,7 @@ jQuery(function($) {
 	var toggle = '[data-toggle="dropdown"]';
 	var Dropdown = function(element) {
 		$(element).on('click.bs.dropdown', this.toggle)
-	}
+	};
 	Dropdown.VERSION = '3.3.5';
 	function getParent($this) {
 		var selector = $this.attr('data-target');
@@ -5396,7 +5395,7 @@ jQuery(function($) {
 			var $parent = getParent($this);
 			var relatedTarget = {
 				relatedTarget: this
-			}
+			};
 			if (!$parent.hasClass('open')) return;
 			if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget));
 			if (e.isDefaultPrevented()) return;
@@ -5417,13 +5416,13 @@ jQuery(function($) {
 			}
 			var relatedTarget = {
 				relatedTarget: this
-			}
+			};
 			$parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget));
 			if (e.isDefaultPrevented()) return $this.trigger('focus').attr('aria-expanded', 'true');
 			$parent.toggleClass('open').trigger('shown.bs.dropdown', relatedTarget);
 		}
 		return false;
-	}
+	};
 	Dropdown.prototype.keydown = function(e) {
 		if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return;
 		var $this = $(this);
@@ -5442,11 +5441,11 @@ jQuery(function($) {
 		var $items = $parent.find('.dropdown-menu' + desc);
 		if (!$items.length) return;
 		var index = $items.index(e.target);
-		if (e.which == 38 && index > 0) index-- // up
+		if (e.which == 38 && index > 0) index--; // up
 		if (e.which == 40 && index < $items.length - 1) index++; // down
 		if (!~index) index = 0;
 		$items.eq(index).trigger('focus');
-	}
+	};
 	function Plugin(option) {
 		return this.each(function() {
 			var $this = $(this);
@@ -5465,7 +5464,7 @@ jQuery(function($) {
 	$.fn.dropdown.noConflict = function() {
 		$.fn.dropdown = old;
 		return this;
-	}
+	};
 	$(document).on('click.bs.dropdown.data-api', clearMenus).on('click.bs.dropdown.data-api', '.dropdown form',
 	function(e) {
 		e.stopPropagation()
@@ -5519,7 +5518,7 @@ $(function() {
 			MozTransition    : 'transitionend',
 			OTransition      : 'oTransitionEnd otransitionend',
 			transition       : 'transitionend'
-		}	
+		};
 		for (var name in transEndEventNames) {
 			if (el.style[name] !== undefined) {
 				return { end: transEndEventNames[name] }
@@ -5531,13 +5530,13 @@ $(function() {
 	$.fn.emulateTransitionEnd = function (duration) {
 		var called = false;
 		var $el = this;
-		$(this).one('bsTransitionEnd', function () { called = true })
+		$(this).one('bsTransitionEnd', function () { called = true });
 		var callback = function () {
 			if (!called) $($el).trigger($.support.transition.end)
-		}
+		};
 		setTimeout(callback, duration);
 		return this;
-	}	
+	};
 	$(function () {
 		$.support.transition = transitionEnd();	
 		if (!$.support.transition) return;
@@ -5567,7 +5566,7 @@ $(function() {
 	var Tooltip = function(element, options) {
 		this.type = this.options = this.enabled = this.timeout = this.hoverState = this.$element = null;
 		this.init('tooltip', element, options);
-	}
+	};
 
 	Tooltip.VERSION = '3.3.0';
 	Tooltip.TRANSITION_DURATION = 150;
@@ -5586,7 +5585,7 @@ $(function() {
 			selector: 'body',
 			padding: 0
 		}
-	}
+	};
 
 	Tooltip.prototype.init = function(type, element, options) {
 		this.enabled = true;
@@ -5613,11 +5612,11 @@ $(function() {
 			trigger: 'manual',
 			selector: ''
 		})) : this.fixTitle()
-	}
+	};
 
 	Tooltip.prototype.getDefaults = function() {
 		return Tooltip.DEFAULTS;
-	}
+	};
 
 	Tooltip.prototype.getOptions = function(options) {
 		options = $.extend({},
@@ -5629,19 +5628,19 @@ $(function() {
 			}
 		}
 		return options;
-	}
+	};
 
 	Tooltip.prototype.getDelegateOptions = function() {
-		var options = {}
-		var defaults = this.getDefaults()
+		var options = {};
+		var defaults = this.getDefaults();
 
 		this._options && $.each(this._options,
 		function(key, value) {
 			if (defaults[key] != value) options[key] = value;
-		})
+		});
 
 		return options;
-	}
+	};
 
 	Tooltip.prototype.enter = function(obj) {
 		var self = obj instanceof this.constructor ? 
@@ -5659,13 +5658,13 @@ $(function() {
 
 		clearTimeout(self.timeout);
 		self.hoverState = 'in';
-		if (!self.options.delay || !self.options.delay.show) return self.show()
+		if (!self.options.delay || !self.options.delay.show) return self.show();
 
 		self.timeout = setTimeout(function() {
 			if (self.hoverState == 'in') self.show();
 		},
 		self.options.delay.show);
-	}
+	};
 
 	Tooltip.prototype.leave = function(obj) {
 		var self = obj instanceof this.constructor ? obj: $(obj.currentTarget).data('bs.' + this.type);
@@ -5683,7 +5682,7 @@ $(function() {
 			if (self.hoverState == 'out') self.hide();
 		},
 		self.options.delay.hide);
-	}
+	};
 
 	Tooltip.prototype.show = function() {
 		var e = $.Event('show.bs.' + this.type);
@@ -5724,7 +5723,7 @@ $(function() {
 				var $container = this.options.container ? $(this.options.container) : this.$element.parent();
 				var containerDim = this.getPosition($container);
 
-				placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top': placement == 'top' && pos.top - actualHeight < containerDim.top ? 'bottom': placement == 'right' && pos.right + actualWidth > containerDim.width ? 'left': placement == 'left' && pos.left - actualWidth < containerDim.left ? 'right': placement
+				placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top': placement == 'top' && pos.top - actualHeight < containerDim.top ? 'bottom': placement == 'right' && pos.right + actualWidth > containerDim.width ? 'left': placement == 'left' && pos.left - actualWidth < containerDim.left ? 'right': placement;
 				$tip.removeClass(orgPlacement).addClass(placement);
 			}
 
@@ -5735,11 +5734,11 @@ $(function() {
 				that.$element.trigger('shown.bs.' + that.type);
 				that.hoverState = null;
 				if (prevHoverState == 'out') that.leave(that);
-			}
+			};
 
 			$.support.transition && this.$tip.hasClass('fade') ? $tip.one('bsTransitionEnd', complete).emulateTransitionEnd(Tooltip.TRANSITION_DURATION) : complete()
 		}
-	}
+	};
 
 	Tooltip.prototype.applyPlacement = function(offset, placement) {
 		var $tip = this.tip();
@@ -5790,18 +5789,18 @@ $(function() {
 
 		$tip.offset(offset);
 		this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], isVertical);
-	}
+	};
 
 	Tooltip.prototype.replaceArrow = function(delta, dimension, isHorizontal) {
 		this.arrow().css(isHorizontal ? 'left': 'top', 50 * (1 - delta / dimension) + '%').css(isHorizontal ? 'top': 'left', '');
-	}
+	};
 
 	Tooltip.prototype.setContent = function() {
 		var $tip = this.tip();
 		var title = this.getTitle();
 		$tip.find('.tooltip-inner')[this.options.html ? 'html': 'text'](title);
 		$tip.removeClass('fade in top bottom left right');
-	}
+	};
 
 	Tooltip.prototype.hide = function(callback) {
 		var that = this;
@@ -5819,18 +5818,18 @@ $(function() {
 		$.support.transition && this.$tip.hasClass('fade') ? $tip.one('bsTransitionEnd', complete).emulateTransitionEnd(Tooltip.TRANSITION_DURATION) : complete();
 		this.hoverState = null;
 		return this;
-	}
+	};
 
 	Tooltip.prototype.fixTitle = function() {
-		var $e = this.$element
+		var $e = this.$element;
 		if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
 			$e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
 		}
-	}
+	};
 
 	Tooltip.prototype.hasContent = function() {
 		return this.getTitle();
-	}
+	};
 
 	Tooltip.prototype.getPosition = function($element) {
 		$element = $element || this.$element;
@@ -5851,14 +5850,14 @@ $(function() {
 		}: $element.offset();
 		var scroll = {
 			scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop: $element.scrollTop()
-		}
+		};
 		var outerDims = isBody ? {
 			width: $(window).width(),
 			height: $(window).height()
-		}: null
+		}: null;
 		return $.extend({},
 		elRect, scroll, outerDims, elOffset)
-	}
+	};
 
 	Tooltip.prototype.getCalculatedOffset = function(placement, pos, actualWidth, actualHeight) {
 		return placement == 'bottom' ? {
@@ -5877,13 +5876,13 @@ $(function() {
 			left: pos.left + pos.width
 		}
 
-	}
+	};
 
 	Tooltip.prototype.getViewportAdjustedDelta = function(placement, pos, actualWidth, actualHeight) {
 		var delta = {
 			top: 0,
 			left: 0
-		}
+		};
 		if (!this.$viewport) return delta;
 
 		var viewportPadding = this.options.viewport && this.options.viewport.padding || 0;
@@ -5907,41 +5906,41 @@ $(function() {
 			}
 		}
 		return delta
-	}
+	};
 
 	Tooltip.prototype.getTitle = function() {
 		var title;
 		var $e = this.$element;
 		var o = this.options;
-		title = $e.attr('data-original-title') || (typeof o.title == 'function' ? o.title.call($e[0]) : o.title)
+		title = $e.attr('data-original-title') || (typeof o.title == 'function' ? o.title.call($e[0]) : o.title);
 		return title;
-	}
+	};
 
 	Tooltip.prototype.getUID = function(prefix) {
 		do prefix += ~~ (Math.random() * 1000000);
 		while (document.getElementById(prefix));
 		return prefix;
-	}
+	};
 
 	Tooltip.prototype.tip = function() {
 		return (this.$tip = this.$tip || $(this.options.template));
-	}
+	};
 
 	Tooltip.prototype.arrow = function() {
 		return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'));
-	}
+	};
 
 	Tooltip.prototype.enable = function() {
 		this.enabled = true;
-	}
+	};
 
 	Tooltip.prototype.disable = function() {
 		this.enabled = false;
-	}
+	};
 
 	Tooltip.prototype.toggleEnabled = function() {
 		this.enabled = !this.enabled;
-	}
+	};
 
 	Tooltip.prototype.toggle = function(e) {
 		var self = this;
@@ -5953,7 +5952,7 @@ $(function() {
 			}
 		}
 		self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
-	}
+	};
 
 	Tooltip.prototype.destroy = function() {
 		var that = this;
@@ -5961,7 +5960,7 @@ $(function() {
 		this.hide(function() {
 			that.$element.off('.' + that.type).removeData('bs.' + that.type);
 		});
-	}
+	};
 
 	// TOOLTIP PLUGIN DEFINITION
 	// =========================
@@ -6011,7 +6010,7 @@ function($) {
 	// ===============================	
 	var Popover = function(element, options) {
 		this.init('popover', element, options)
-	}
+	};
 
 	if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js');
 	Popover.VERSION = '3.3.0';
@@ -6021,7 +6020,7 @@ function($) {
 		trigger: 'click',
 		content: '',
 		template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-	})
+	});
 
 	// NOTE: POPOVER EXTENDS tooltip.js
 	// ================================	
@@ -6029,7 +6028,7 @@ function($) {
 	Popover.prototype.constructor = Popover;
 	Popover.prototype.getDefaults = function() {
 		return Popover.DEFAULTS;
-	}
+	};
 
 	Popover.prototype.setContent = function() {
 		var $tip = this.tip();
@@ -6038,34 +6037,34 @@ function($) {
 
 		$tip.find('.popover-title')[this.options.html ? 'html': 'text'](title);
 		$tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-			this.options.html ? (typeof content == 'string' ? 'html': 'append') : 'text'](content)
+			this.options.html ? (typeof content == 'string' ? 'html': 'append') : 'text'](content);
 
 		$tip.removeClass('fade top bottom left right in');
 
 		// IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
 		// this manually by checking the contents.
 		if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide();
-	}
+	};
 
 	Popover.prototype.hasContent = function() {
 		return this.getTitle() || this.getContent()
-	}
+	};
 
 	Popover.prototype.getContent = function() {
 		var $e = this.$element;
 		var o = this.options;
 
 		return $e.attr('data-content') || (typeof o.content == 'function' ? o.content.call($e[0]) : o.content)
-	}
+	};
 
 	Popover.prototype.arrow = function() {
 		return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
-	}
+	};
 
 	Popover.prototype.tip = function() {
 		if (!this.$tip) this.$tip = $(this.options.template);
 		return this.$tip;
-	}
+	};
 
 	// POPOVER PLUGIN DEFINITION
 	// =========================	
@@ -6087,7 +6086,7 @@ function($) {
 		})
 	}
 
-	var old = $.fn.popover
+	var old = $.fn.popover;
 
 	$.fn.popover = Plugin;
 	$.fn.popover.Constructor = Popover;
@@ -6114,14 +6113,14 @@ $(function() {
 	'use strict';
 	// ALERT CLASS DEFINITION
 	// ======================
-	var dismiss = '[data-dismiss="alert"]'
+	var dismiss = '[data-dismiss="alert"]';
 	var Alert = function(el) {
 		$(el).on('click', dismiss, this.close)
-	}
+	};
 
-	Alert.VERSION = '3.3.0'
+	Alert.VERSION = '3.3.0';
 
-	Alert.TRANSITION_DURATION = 150
+	Alert.TRANSITION_DURATION = 150;
 
 	Alert.prototype.close = function(e) {
 		var $this = $(this);
@@ -6138,7 +6137,7 @@ $(function() {
 			$parent = $this.closest('.alert');
 		}
 
-		$parent.trigger(e = $.Event('close.bs.alert'))
+		$parent.trigger(e = $.Event('close.bs.alert'));
 
 		if (e.isDefaultPrevented()) return;
 
@@ -6149,7 +6148,7 @@ $(function() {
 		}
 
 		$.support.transition && $parent.hasClass('fade') ? $parent.one('bsTransitionEnd', removeElement).emulateTransitionEnd(Alert.TRANSITION_DURATION) : removeElement()
-	}
+	};
 
 	// ALERT PLUGIN DEFINITION
 	// =======================
@@ -6171,7 +6170,7 @@ $(function() {
 	$.fn.alert.noConflict = function() {
 		$.fn.alert = old;
 		return this;
-	}
+	};
 	// ALERT DATA-API
 	// ==============
 	$(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
@@ -7442,7 +7441,7 @@ function($) {
 		this.icons = {
 			leftArrow: this.fontAwesome ? 'fa-arrow-left': (this.bootcssVer === 3 ? 'glyphicon-arrow-left': 'icon-arrow-left'),
 			rightArrow: this.fontAwesome ? 'fa-arrow-right': (this.bootcssVer === 3 ? 'glyphicon-arrow-right': 'icon-arrow-right')
-		}
+		};
 		this.icontype = this.fontAwesome ? 'fa': 'glyphicon';
 		this._attachEvents();
 		this.clickedOutside = function(e) {
@@ -7450,7 +7449,7 @@ function($) {
 			if ($(e.target).closest('.datetimepicker').length === 0) {
 				that.hide();
 			}
-		}
+		};
 
 		this.formatViewType = 'datetime';
 		if ('formatViewType' in options) {

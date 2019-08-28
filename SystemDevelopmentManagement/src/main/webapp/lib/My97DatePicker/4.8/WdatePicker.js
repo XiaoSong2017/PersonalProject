@@ -322,7 +322,7 @@ var $dp, WdatePicker;
                 $dp.status = 1;
                 L.el = T;
                 I(L, true)
-            } else return
+            }
         } else if (L.eCont) {
             L.eCont = $dp.$(L.eCont);
             L.el = T;
@@ -463,4 +463,4 @@ var $dp, WdatePicker;
             J.dd.style.left = H + "px"
         }
     }
-})()
+})();

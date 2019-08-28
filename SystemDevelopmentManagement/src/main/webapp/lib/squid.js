@@ -189,8 +189,8 @@
 
                 while((elem = elem.parentNode) && elem !== body && elem !== docElem) {
                     if(elem === offsetParent) {
-                        top = elem.offsetTop
-                        left = elem.offsetLeft
+                        top = elem.offsetTop;
+                        left = elem.offsetLeft;
 
                         offsetParent = elem.offsetParent
                     }

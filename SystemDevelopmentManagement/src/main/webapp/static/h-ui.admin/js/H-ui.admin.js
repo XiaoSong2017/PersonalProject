@@ -237,8 +237,7 @@ function getHTMLDate(obj) {
     _dd = d.getDate();
     _ww = weekday[d.getDay()];
     obj.html(_yy + "年" + _mm + "月" + _dd + "日 " + _ww);
-};
-
+}
 $(function () {
     getHTMLDate($("#top_time"));
     getskincookie();
