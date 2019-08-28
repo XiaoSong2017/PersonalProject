@@ -8,8 +8,9 @@ import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.query.Query;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
-import java.util.Arrays;
 import java.util.List;
 
 public class BaseDaoImp<T> implements BaseDao<T> {
@@ -106,8 +107,8 @@ public class BaseDaoImp<T> implements BaseDao<T> {
         for (int i = 0; i < entities.size(); ++i) {
             sessionFactory.getCurrentSession().save(entities.get(i));
             if (i % 20 == 0) {
-                this.sessionFactory.getCurrentSession().flush();
-                this.sessionFactory.getCurrentSession().clear();
+                sessionFactory.getCurrentSession().flush();
+                sessionFactory.getCurrentSession().clear();
             }
         }
         return true;
@@ -121,14 +122,57 @@ public class BaseDaoImp<T> implements BaseDao<T> {
         return true;
     }
 
-
+    @SuppressWarnings({"deprecation", "unchecked"})
     @Override
-    public boolean batchToDelete(Class<T> entityClass, List<Object> id) {
-        //Query query = sessionFactory.getCurrentSession().createQuery("delete from " + entityClass.getSimpleName() + " en where en.id=?1");
+    public boolean batchToUpdateByIdentifierProperty(List<T> entities) {
+        sessionFactory.getCurrentSession().doWork(connection -> {
+            AbstractEntityPersister abstractEntityPersister = (AbstractEntityPersister) sessionFactory.getClassMetadata(entities.getClass().getGenericSuperclass().getClass());
+            StringBuilder sql = new StringBuilder("update " + abstractEntityPersister.getTableName() + " set ");
+            String[] columnNames = abstractEntityPersister.getKeyColumnNames();
+            for (int i = 0, length = columnNames.length; i < length; ++i) {
+                sql.append(columnNames[i]).append(" = ?");
+                if (i != length - 1) sql.append(",");
+            }
+            String[] identifierColumnNames = abstractEntityPersister.getIdentifierColumnNames();
+            sql.append(" WHERE ").append(identifierColumnNames[0]).append(" =? ");
+            for (int i = 1, length = identifierColumnNames.length; i < length; ++i)
+                sql.append("AND ").append(identifierColumnNames[i]).append(" =? ");
+            PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(sql));
+            Class clazz = abstractEntityPersister.getMappedClass();
+            String[] propertyNames = abstractEntityPersister.getPropertyNames();
+            String id = abstractEntityPersister.getIdentifierPropertyName();
+            for (T entity : entities) {
+                int i = 0;
+                for (int length = propertyNames.length; i < length; ++i) {
+                    try {
+                        preparedStatement.setObject(i + 1, clazz.getDeclaredMethod("get" + propertyNames[i].replaceFirst(propertyNames[i].substring(0, 1), propertyNames[i].substring(0, 1).toUpperCase())).invoke(entity));
+                    } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    preparedStatement.setObject(++i, clazz.getDeclaredMethod("get" + id.replaceFirst(id.substring(0, 1), id.substring(0, 1).toUpperCase())).invoke(entity));
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        });
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    public boolean batchToDeleteIdentifierProperty(Class<T> entityClass, List<Object> id) {
         sessionFactory.getCurrentSession().doWork(connection -> {
             //System.out.println("ids:" + Arrays.toString(id.toArray()));
-            AbstractEntityPersister abstractEntityPersister=(AbstractEntityPersister) sessionFactory.getClassMetadata(entityClass);
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM " + abstractEntityPersister.getTableName() + " en WHERE en."+abstractEntityPersister.getIdentifierPropertyName()+" =?");
+            AbstractEntityPersister abstractEntityPersister = (AbstractEntityPersister) sessionFactory.getClassMetadata(entityClass);
+            String[] identifierColumnName = abstractEntityPersister.getIdentifierColumnNames();
+            StringBuffer sql = new StringBuffer(String.format("DELETE FROM %s en WHERE %s =? ", abstractEntityPersister.getTableName(), identifierColumnName[0]));
+            for (int i = 1, length = identifierColumnName.length; i < length; ++i)
+                sql.append("AND ").append(identifierColumnName[i]).append("=? ");
+            PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(sql));
 //            System.out.println("IDName:"+abstractEntityPersister.getIdentifierPropertyName());
             for (Object i : id) {
                 preparedStatement.setObject(1, i);
@@ -138,16 +182,20 @@ public class BaseDaoImp<T> implements BaseDao<T> {
             preparedStatement.close();
         });
         return true;
-//        try {
-//            Class<?> type = entityClass.getDeclaredField("id").getType();
-//            for (Object i : id) {
-//                query.setParameter(1, type.cast(i));
-//            }
-//            query.executeUpdate();
-//            return true;
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
+    }
+
+    public boolean batchToDelete(Class<T> entityClass, List<Object> id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("delete from " + entityClass.getSimpleName() + " en where en.id=?1");
+        try {
+            Class<?> type = entityClass.getDeclaredField("id").getType();
+            for (Object i : id) {
+                query.setParameter(1, type.cast(i));
+            }
+            query.executeUpdate();
+            return true;
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

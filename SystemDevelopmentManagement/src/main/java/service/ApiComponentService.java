@@ -66,6 +66,6 @@ public class ApiComponentService {
 
     @Transactional
     public boolean batchDeleteApiComponent(List<Object> id) {
-        return apiComponentEntityDao.batchToDelete(ApiComponentEntity.class,id);
+        return apiComponentEntityDao.batchToDeleteIdentifierProperty(ApiComponentEntity.class,id);
     }
 }

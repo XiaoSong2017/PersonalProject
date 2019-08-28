@@ -52,6 +52,6 @@ public class DataDictionaryService {
 
     @Transactional
     public boolean batchDeleteDataDictionary(List<Object> ids) {
-        return dataDictionaryEntityDao.batchToDelete(DataDictionaryEntity.class,ids);
+        return dataDictionaryEntityDao.batchToDeleteIdentifierProperty(DataDictionaryEntity.class,ids);
     }
 }

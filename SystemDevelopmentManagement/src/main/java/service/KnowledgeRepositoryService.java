@@ -67,6 +67,6 @@ public class KnowledgeRepositoryService {
 
     @Transactional
     public boolean batchDeleteKnowledgeRepository(List<Object> ids) {
-        return knowledgeRepositoryEntityDao.batchToDelete(KnowledgeRepositoryEntity.class,ids);
+        return knowledgeRepositoryEntityDao.batchToDeleteIdentifierProperty(KnowledgeRepositoryEntity.class,ids);
     }
 }
