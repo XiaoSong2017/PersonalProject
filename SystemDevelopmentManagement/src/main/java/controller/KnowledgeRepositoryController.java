@@ -32,7 +32,7 @@ public class KnowledgeRepositoryController {
     }
 
 
-    @RequestMapping("/knowledgeRepositoryAll")
+    @RequestMapping(value = "/knowledgeRepositoryAll",method = RequestMethod.POST)
     @ResponseBody
     public String getKnowledgeRepositoryAll() {
         JSONObject jsonObject=new JSONObject();

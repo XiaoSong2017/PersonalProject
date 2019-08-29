@@ -2,7 +2,6 @@ package controller;
 
 import bean.Page;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.sun.istack.NotNull;
@@ -25,7 +24,7 @@ public class DataDictionaryController {
         this.dataDictionaryService = dataDictionaryService;
     }
 
-    @RequestMapping("/dataDictionaryAll")
+    @RequestMapping(value = "/dataDictionaryAll",method = RequestMethod.POST)
     @ResponseBody
     public String getDataDictionaryAll() {
         JSONObject jsonObject=new JSONObject();
