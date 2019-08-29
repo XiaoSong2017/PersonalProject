@@ -25,7 +25,7 @@ public class DataDictionaryController {
         this.dataDictionaryService = dataDictionaryService;
     }
 
-    @RequestMapping("/dataDictionaryAll")
+    @RequestMapping(value = "/dataDictionaryAll",method = RequestMethod.POST)
     @ResponseBody
     public String getDataDictionaryAll() {
         JSONObject jsonObject=new JSONObject();
